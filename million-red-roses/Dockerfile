@@ -7,6 +7,7 @@
 # to run docker
 # $ docker run --name red-roses -d -p 8080:8080 -t red-roses:0.0.9
 # 
+
 FROM adoptopenjdk/openjdk13:alpine-jre
 WORKDIR /opt/app
 COPY target/million-red-roses.jar app.jar
