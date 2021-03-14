@@ -6,5 +6,6 @@ script:
   - ./mvnw clean install
 
 before_install:
+  - ls -a -1
   - chmod +x mvnw
 
