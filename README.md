@@ -1,4 +1,4 @@
-# Мільйон червоних троянд
+# Мільйон червоних троянд [![Build Status](https://travis-ci.com/pashkazp/red-roses.svg?branch=main)](https://travis-ci.com/pashkazp/red-roses)
 
 ## Опис
 
