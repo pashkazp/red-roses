@@ -2,5 +2,9 @@ language: java
 jdk:
   - openjdk13
 
-script: ./mvnw clean install
+script: 
+  - ./mvnw clean install
+
+before_install:
+  - chmod +x mvnw
 
