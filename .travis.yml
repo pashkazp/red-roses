@@ -2,6 +2,5 @@ language: java
 jdk:
   - openjdk11
 
-script:
-  - ./mvnw clean install -B
+script: ./mvn clean install
 
