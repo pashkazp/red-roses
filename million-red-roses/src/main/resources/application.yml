@@ -1,36 +1,36 @@
 spring:
   datasource:
-    data: classpath:/contacts-500k.sql
-    #data: classpath:/data.sql
+    #data: classpath:/contacts-500k.sql
+    data: classpath:/data.sql
 
 # PostgreSQL settings section    
 # ---------------------------
-    driver-class-name: org.postgresql.Driver
-    hikari:
-      connection-timeout: 60000
-      maximum-pool-size: 5
-    initialization-mode: always
-    password: changeme
-    platform: postgres
-    username: postgres
-    url: jdbc:postgresql://192.168.88.6:5432/sipsoft
-    #url: jdbc:postgresql://localhost:5432/sipsoft
-    #url: jdbc:postgresql://192.168.123.6:5432/sipsoft
+#    driver-class-name: org.postgresql.Driver
+#    hikari:
+#      connection-timeout: 60000
+#      maximum-pool-size: 5
+#    initialization-mode: always
+#    password: changeme
+#    platform: postgres
+#    username: postgres
+#    url: jdbc:postgresql://192.168.88.6:5432/sipsoft
+#    #url: jdbc:postgresql://localhost:5432/sipsoft
+#    #url: jdbc:postgresql://192.168.123.6:5432/sipsoft
 # ----------------------------    
     
     
 # H2 settings section    
 # -------------------
-#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
-#    driver-class-name: org.h2.Driver
-#    username: test
-#    password: test
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: test
+    password: test
   
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
+  h2:
+    console:
+      enabled: false
+      settings:
+        web-allow-others: false
 # -------------------     
 
   jpa:
