@@ -5,7 +5,4 @@ jdk:
 script: 
   - ./mvnw clean install
 
-before_install:
-  - ls -a -1
-  - chmod +x mvnw
-
+before_script: cd million-red-roses
