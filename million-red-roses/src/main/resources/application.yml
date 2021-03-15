@@ -63,4 +63,7 @@ logging:
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} %highlight(%-5level) %green(%C{1.}):[%L - %msg%n%throwable'
 
+server:
+  tomcat:
+    relaxed-query-chars: <,>,[,\,],^,`,{,|,}
     
