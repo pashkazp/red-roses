@@ -53,18 +53,20 @@ public class ContactService implements StreamingResponseBody {
 					while (true) { // endless loop
 						Contact contact = ci.next(); // get contact
 						Matcher matcher = pattern.matcher(contact.getName()); // test name field by filter
+
+						entityManager.detach(contact); // clean persistent context
+
 						if (!matcher.matches()) { // in Not match
-
-							entityManager.detach(contact); // clean persistent context
-
 							oos.write(new ObjectMapper().writeValueAsString(contact)); // write JSON representation of
-																						// Contact
 							if (ci.hasNext()) { // if there is one more contact
 								oos.write(",\n"); // delimit JSON records
 								oos.flush(); // flush output
 							} else {
 								break; // if there are no more contacts, interrupt the endless loop
 							}
+						}
+						if (!ci.hasNext()) { // if there is one more contact
+							break; // if there are no more contacts, interrupt the endless loop
 						}
 					}
 				}
