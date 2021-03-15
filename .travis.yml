@@ -2,7 +2,14 @@ language: java
 jdk:
   - openjdk13
 
-script: 
-  - ./mvnw clean install
+#script: 
+#  - ./mvnw clean install
 
+#before_script: cd million-red-roses
 before_script: cd million-red-roses
+
+# whitelist
+branches:
+  only:
+    - main
+
