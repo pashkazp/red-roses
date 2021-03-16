@@ -55,10 +55,15 @@ public class ContactController {
 		String headers = request.getHeader(HttpHeaders.ACCEPT);
 
 		MediaType mt;
-		if (headers.indexOf(MediaType.APPLICATION_XML_VALUE) == -1) {
-			mt = MediaType.APPLICATION_JSON;
+		if (headers != null) {
+			if (headers.indexOf(MediaType.APPLICATION_XML_VALUE) == -1) {
+				mt = MediaType.APPLICATION_JSON;
+			} else {
+				mt = MediaType.APPLICATION_XML;
+			}
+
 		} else {
-			mt = MediaType.APPLICATION_XML;
+			mt = MediaType.APPLICATION_JSON;
 		}
 
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).contentType(mt).body(ex.getMessage());
