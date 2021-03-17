@@ -42,3 +42,5 @@ hs_err_pid*
 /bin/
 **/target/**
 .attach_pid*
+/million-red-roses/bin/
+/million-red-roses/target/
