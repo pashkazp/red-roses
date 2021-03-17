@@ -13,9 +13,9 @@ spring:
 #    password: changeme
 #    platform: postgres
 #    username: postgres
-#    url: jdbc:postgresql://192.168.88.6:5432/sipsoft
+#    #url: jdbc:postgresql://192.168.88.6:5432/sipsoft
 #    #url: jdbc:postgresql://localhost:5432/sipsoft
-#    #url: jdbc:postgresql://192.168.123.6:5432/sipsoft
+#    url: jdbc:postgresql://192.168.123.6:5432/sipsoft
 # ----------------------------    
     
     
@@ -49,17 +49,17 @@ logging:
   level:
     org:
       hibernate:
-        SQL: DEBUG
+        SQL: INFO
         type:
           descriptor:
             sql:
-              BasicBinder: DEBUG
+              BasicBinder: INFO
       springframework:
         jdbc:
           core:
             JdbcTemplate: INFO
-            StatementCreatorUtils: TRACE
-    depavlo: DEBUG
+            StatementCreatorUtils: INFO
+    depavlo: INFO
   pattern:
     console: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} %highlight(%-5level) %green(%C{1.}):[%L - %msg%n%throwable'
 

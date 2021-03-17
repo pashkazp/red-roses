@@ -28,7 +28,10 @@ import lombok.extern.slf4j.Slf4j;
 public class ContactService implements StreamingResponseBody {
 
 	private final ContactRepository dao;
+
 	private final EntityManager entityManager;
+
+	private final ObjectMapper objectMapper;
 
 	@Setter
 	private String filter;
@@ -46,28 +49,23 @@ public class ContactService implements StreamingResponseBody {
 
 				Iterator<Contact> ci = contactResultStream.iterator();
 
+				boolean hasPrintedPrevious = false;
+
 				oos.write("[\n"); // begin Contacts array
 
-				if (ci.hasNext()) {// if there is at least one contact
+				while (ci.hasNext()) { // endless loop
+					Contact contact = ci.next(); // get contact
+					Matcher matcher = pattern.matcher(contact.getName()); // test name field by filter
 
-					while (true) { // endless loop
-						Contact contact = ci.next(); // get contact
-						Matcher matcher = pattern.matcher(contact.getName()); // test name field by filter
+					entityManager.detach(contact); // clean persistent context
 
-						entityManager.detach(contact); // clean persistent context
-
-						if (!matcher.matches()) { // in Not match
-							oos.write(new ObjectMapper().writeValueAsString(contact)); // write JSON representation of
-							if (ci.hasNext()) { // if there is one more contact
-								oos.write(",\n"); // delimit JSON records
-								oos.flush(); // flush output
-							} else {
-								break; // if there are no more contacts, interrupt the endless loop
-							}
+					if (!matcher.matches()) { // in Not match
+						if (hasPrintedPrevious) {
+							oos.write(",\n"); // delimit JSON records
 						}
-						if (!ci.hasNext()) { // if there is one more contact
-							break; // if there are no more contacts, interrupt the endless loop
-						}
+						oos.write(objectMapper.writeValueAsString(contact)); // write JSON representation of
+						oos.flush(); // flush output
+						hasPrintedPrevious = true;
 					}
 				}
 
