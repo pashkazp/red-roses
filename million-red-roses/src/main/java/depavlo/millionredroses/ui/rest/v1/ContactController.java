@@ -27,16 +27,16 @@ public class ContactController {
 
 	private final ContactService contactService;
 
-	@GetMapping(value = "", produces = { "application/json" })
+	@GetMapping(value = "", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<StreamingResponseBody> listAllContacts(
 			@RequestParam(value = "nameFilter", required = true) String filter) {
 
-		log.debug("listAllContacts] - Get Contacts by use filter '{}'", filter);
+//		log.debug("listAllContacts] - Get Contacts by use filter '{}'", filter);
 
 		StreamingResponseBody body = contactService::writeTo;
 		contactService.setFilter(filter);
 
-		return new ResponseEntity<>(body, HttpStatus.OK);
+		return new ResponseEntity<StreamingResponseBody>(body, HttpStatus.OK);
 	}
 
 	/**

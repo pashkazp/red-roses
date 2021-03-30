@@ -10,15 +10,13 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -27,12 +25,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import depavlo.millionredroses.model.Contact;
 import depavlo.millionredroses.repo.ContactRepository;
-import lombok.extern.slf4j.Slf4j;
 
 @SpringBootTest
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration
-@Slf4j
 @DisplayName("Testing ContactService")
 class ContactServiceTest {
 	@MockBean
@@ -50,10 +44,27 @@ class ContactServiceTest {
 		byteArrayOutputStream = new ByteArrayOutputStream();
 	}
 
+	@Test
+	@DisplayName("Test Serialize")
+	void test1() throws JsonMappingException, JsonProcessingException {
+		Contact contact1 = new Contact(1l, "Widget Name");
+		Contact contact2 = new Contact(2l, "Widget 2 Name");
+		contactService.setFilter("dfgdgdfgdfgdfg");
+		doReturn(List.of(contact1, contact2).stream()).when(repo).getAll();
+		contactService.writeTo(byteArrayOutputStream);
+		List<Contact> contactsOut = om.readValue(byteArrayOutputStream.toString(), new TypeReference<List<Contact>>() {
+		});
+		assertEquals(contactsOut.size(), 2);
+		assertEquals(contactsOut.get(0).getId(), contact1.getId());
+		assertEquals(contactsOut.get(0).getName(), contact1.getName());
+		assertEquals(contactsOut.get(1).getId(), contact2.getId());
+		assertEquals(contactsOut.get(1).getName(), contact2.getName());
+	}
+
 	@ParameterizedTest
 	@DisplayName("Testing regexp")
 	@MethodSource("regexpAndPassCountAndListCounts")
-	void test1(String regExp, int passedCount, List<Contact> contacts)
+	void test2(String regExp, int passedCount, List<Contact> contacts)
 			throws JsonMappingException, JsonProcessingException {
 
 		contactService.setFilter(regExp);

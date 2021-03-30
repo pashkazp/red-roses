@@ -8,14 +8,12 @@ import java.util.stream.Stream;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import depavlo.millionredroses.model.Contact;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @DisplayName("Testing Contact repo")
 class ContactRepository2Test {
 	@MockBean
